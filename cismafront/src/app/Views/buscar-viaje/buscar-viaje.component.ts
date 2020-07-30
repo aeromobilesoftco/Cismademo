@@ -39,6 +39,9 @@ public bloqueado2;
 
 // matriz para guardar datos de buscar-viaje
 public arrayviaje;
+
+// matriz para guardar maletas
+public arraymaleta;
   constructor(private activatedRoute: ActivatedRoute
   	, private router: Router
     , public svrcisma: ApiCismaService
@@ -154,6 +157,36 @@ case 6:
     this.mensaje="";
     clearInterval(intervalId6);
     this.resservicio();
+  }}, 1000)
+break;
+
+case 7:
+  let contarsec7=5;
+
+  let intervalId7 = setInterval(() => {
+  contarsec7 = contarsec7 - 1;
+  //console.log(this.contarsec)
+  this.mensaje="Guardando datos de viaje. " +contarsec7;
+  if(contarsec7 === 0) 
+  {
+    this.mensaje="";
+    clearInterval(intervalId7);
+    this.resviaje();
+  }}, 1000)
+break;
+
+case 8:
+  let contarsec8=5;
+
+  let intervalId8 = setInterval(() => {
+  contarsec8 = contarsec8 - 1;
+  //console.log(this.contarsec)
+  this.mensaje="Guardando datos de equipaje. " +contarsec8;
+  if(contarsec8 === 0) 
+  {
+    this.mensaje="";
+    clearInterval(intervalId8);
+    this.resmaletam();
   }}, 1000)
 break;
 /*
@@ -321,6 +354,47 @@ resservicio()
         }
     }
 
+
+guardaviaje(form)
+{
+  console.log(form.value);  
+
+    this.svrcisma.Cismadata(2,'viaje',form.value);
+
+    let arraytran;
+
+    arraytran=this.svrcisma.transfer;
+
+    this.arrayviaje=arraytran;  
+
+    // inicio contador
+    this.counter(7);
+
+  this.bloqueado=true;
+  this.bloqueado2=false;
+}
+
+
+resviaje()
+{
+    
+    // Recibo a transfer
+    this.arrayviaje=this.svrcisma.transfer;
+    // valido si obtengo resultados del webservice
+    // si no tengo resultado envio error de lo contraro parametros
+
+    if(this.arrayviaje == null )
+    {
+        this.router.navigate(["/"]);
+    }
+    else
+    {
+        console.log('paso');
+    }  
+
+}
+
+
 // boton de confirmacion
 onSubmit()
 {
@@ -330,20 +404,60 @@ onSubmit()
         if (this.dynamicForm.invalid) {
             return;
         }
-
+        else
+        {
         // display form values on success
-        console.log(this.dynamicForm.value);  
-        console.log(this.arrayviaje);  
+        /*
+        console.log(this.dynamicForm.value.tickets[0].alto);  
+        console.log(this.arrayviaje[0].consecutivo); 
+*/
+          // realizo el conteo de la matriz
+          for(let i=0; i<this.dynamicForm.value.tickets.length; i++)
+          {
+            console.log(this.dynamicForm.value.tickets[i].alto);
+
+            let jsonrest ={
+            "idviajepersona": this.arrayviaje[0].consecutivo,
+            "alto": this.dynamicForm.value.tickets[i].alto,
+            "ancho": this.dynamicForm.value.tickets[i].ancho,
+            "largo": this.dynamicForm.value.tickets[i].largo,
+            "peso": this.dynamicForm.value.tickets[i].peso,
+            };
+
+            this.svrcisma.Cismadata(2,'maleta',jsonrest);
+
+            let arraytran;
+
+            arraytran=this.svrcisma.transfer;
+
+            this.arraymaleta=arraytran;     
+
+          }
+        }
+
+    // inicio contador
+    this.counter(8);
+
 }
 
-
-guardaviaje(form)
+resmaletam()
 {
-  console.log(form.value);  
+    
+    // Recibo a transfer
+    this.arraymaleta=this.svrcisma.transfer;
+    // valido si obtengo resultados del webservice
+    // si no tengo resultado envio error de lo contraro parametros
 
-  this.arrayviaje=form.value;
-  this.bloqueado=true;
-  this.bloqueado2=false;
+    if(this.arraymaleta == null )
+    {
+        console.log('error');
+    }
+    else
+    {
+        this.router.navigate(["/"]);
+    }  
+
+    this.arraymaleta=[];
 }
 
 }
