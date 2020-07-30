@@ -1,0 +1,169 @@
+<h1>{{mensaje}}</h1>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-6">
+
+            <!-- Form Element sizes -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Elegir Viaje</h3>
+              </div>
+              <div class="card-body">
+          <form #frmbusvia="ngForm" (ngSubmit)="guardaviaje(frmbusvia)">
+          <div class="card-body">
+                <div class="form-group">
+                  <label>Elija pasajero</label>
+                  <select name="idpasajero" class="form-control select2" style="width: 310px;" [disabled]=bloqueado ngModel required>
+                    <option *ngFor="let palami of pasajero" [value]=palami.idpasajero>{{palami.nombres}} {{palami.apellidos}}</option>
+                  </select>
+                </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Elija pais origen</label>
+                  <select name="idpais1" class="form-control select2" style="width: 150px;" [disabled]=bloqueado ngModel required>
+                    <option *ngFor="let selpai1 of paese1" [value]=selpai1.idpais selected="selected" (click)="selciudad(selpai1.idpais)" >{{selpai1.pais}}</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Elija ciudad destino</label>
+                  <select name="idciupais1" class="form-control select2" style="width: 150px;" [disabled]=bloqueado ngModel required>
+                    <option *ngFor="let selciu1 of ciunom1" [value]=selciu1.idciudad>{{selciu1.nomciudad}}</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Elija pais destino</label>
+                  <select name="idpais2" class="form-control select2" style="width: 150px;" [disabled]=bloqueado ngModel required>
+                  <option *ngFor="let selpai2 of paese2" [value]=selpai2.idpais selected="selected" (click)="selciudad2(selpai2.idpais)">{{selpai2.pais}}</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Elija ciudad destino</label>
+                  <select name="idciupais2" class="form-control select2" style="width: 150px;" [disabled]=bloqueado ngModel required>
+                    <option *ngFor="let selciu2 of ciunom2" [value]=selciu2.idciudad>{{selciu2.nomciudad}}</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <h5>Elija servicios</h5>
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Tipo de servicio</label>
+                  <select name="tiposervicio" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 150px;" [disabled]=bloqueado ngModel required>
+              <option *ngFor="let servisel of servi" [value]=servisel.idservicios selected="selected">{{servisel.tiposervicio}}</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Fecha del viaje</label>
+                  <div class="select2-purple">
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                        <input name="fechaviaje" type="date" class="form-control datetimepicker-input" style="width: 350px;" data-target="#reservationdate" [disabled]=bloqueado ngModel required/>
+                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.form-group -->
+              </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary" [disabled]="frmbusvia.invalid">Ingresar</button>
+                </div>              
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!--/.col (left) -->
+          <!-- right column -->
+          <div class="col-md-6">
+            <!-- general form elements disabled -->
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Maletas</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form role="form">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+
+		<label>Numero de maletas</label>
+		<select formControlName="numaletas" class="form-control" (change)="onChangeTickets($event)" [ngClass]="{ 'is-invalid': submitted && f.numaletas.errors }">
+		<option value=""></option>
+		<option *ngFor="let i of [1,2,3,4]">{{i}}</option>
+		</select>
+
+		<div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+			
+<label>Maleta {{i + 1}}</label>
+
+<div [formGroup]="ticket" class="row col-sm-6">
+<table>
+	<tr>
+		<td>
+			<label>Alto</label>
+			<input formControlName="alto" type="number" class="form-control" placeholder="Alto" style="width: 150px;" ngModel required>
+		</td>
+		<td>
+<label>Largo</label>
+<input formControlName="largo" type="number" class="form-control" placeholder="Largo" style="width: 150px;" ngModel required>			
+		</td>
+	</tr>
+<tr>
+	<td>
+		<label>Ancho</label>
+<input formControlName="ancho" type="number" class="form-control" placeholder="Ancho" style="width: 150px;" ngModel required>
+	</td>
+	<td>
+<label>Peso</label>
+<input formControlName="peso" type="number" class="form-control" placeholder="Peso" style="width:150px;" ngModel required>		
+	</td>
+</tr>
+</table>
+</div>
+		</div>
+<div class="card-footer">
+<button class="btn btn-primary" [disabled]=bloqueado2>Confirmar</button>
+</div>
+		</form>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
