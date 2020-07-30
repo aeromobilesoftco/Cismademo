@@ -26,6 +26,8 @@ public ciudad2;
 
 public servicios;
 
+public tipodocu;
+
   constructor(public http: HttpClient) { 
   	// Llamo la url base del servicio
   	// Como cada componente tendra un microservicio independiente
@@ -127,7 +129,7 @@ public servicios;
 
       let options2 = {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         body:cuerpo,
         timeout:20000
@@ -262,6 +264,30 @@ public servicios;
         });
         // Si en algun el promise no responde. indico que el retorno es 0
         this.servicios=0;
+
+      });
+      break; 
+
+      // 6: ciudad1
+      case 9:
+
+      return new Promise(data => {this.http.get(this.WbsUrl+microserv)
+        .subscribe(
+
+        data => {
+
+          this.tipodocu=data;
+          console.log(this.tipodocu);
+        }, error => {
+
+          // valido el tipo de error que me enviara el post
+          if (error.status==404)
+          {
+            this.tipodocu=null
+          }
+        });
+        // Si en algun el promise no responde. indico que el retorno es 0
+        this.tipodocu=0;
 
       });
       break; 

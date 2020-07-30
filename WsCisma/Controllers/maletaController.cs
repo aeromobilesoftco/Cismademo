@@ -17,6 +17,29 @@ namespace WsCisma.Controllers
         ClsDatabas clsdatam = new ClsDatabas();
         DataTable Dt_retorno;
 
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public System.Data.DataTable Get(int id)
+        {
+
+            switch (id)
+            {
+
+                case 1:
+                    // llamo al proceso que llama al select
+                    clsdatam.execPA("PA_INSERCION_MALETA", "2,null,null,null,null,null");
+
+                    Dt_retorno = clsdatam.dt_exp_res;
+                    return Dt_retorno;
+
+                default:
+                    Dt_retorno.Clear();
+                    // return "Adios";
+                    break;
+            }
+            return (Dt_retorno);
+        }
+
         // POST api/values
         [HttpPost]
         public System.Data.DataTable Post([FromBody] ClsMaleta valim)

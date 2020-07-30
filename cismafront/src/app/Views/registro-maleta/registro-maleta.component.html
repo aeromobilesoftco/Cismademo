@@ -1,0 +1,58 @@
+<h1>{{mensaje}}</h1>
+<section class="content">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Pasajeros registrados</h3>
+              </div>
+              <!-- /.card-header -->
+<form #frmalumput="ngForm">
+<table id="example2" class="table table-bordered table-hover">
+	<tr>
+    <th>Id Pasajero</th>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>Fecha de viaje</th>
+    <th>Pais origen</th>
+    <th>Ciudad origen</th>
+    <th>Pais Destino</th>
+    <th>Ciudad Destino</th>
+    <th>Numero de maletas</th>
+	</tr>
+	<tr *ngFor="let paseger of cargamale">
+		<td>
+			{{paseger.idpasajero}}
+        </td>
+        <td>
+			{{paseger.nombres}}
+        </td>	
+        <td>
+			{{paseger.apellidos}}       	
+        </td>
+        <td>
+			{{paseger.fechaviaje}}        	
+        </td>
+        <td>
+			{{paseger.pais_origen}}        	
+        </td>
+
+        <td>
+			{{paseger.ciudad_origen}}        	
+        </td>
+
+        <td>
+			{{paseger.pais_destino}}    	
+        </td>
+
+        <td>
+			{{paseger.ciudad_destino}}    	
+        </td>
+
+        <td>
+			{{paseger.num_maletas}}    	
+        </td>
+	</tr>
+	
+</table>
+</form>
+	</div>
+</section>

@@ -1,0 +1,56 @@
+<h1>{{mensaje}}</h1>
+<section class="content">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Pasajeros registrados</h3>
+              </div>
+              <!-- /.card-header -->
+<form #frmalumput="ngForm">
+<table id="example2" class="table table-bordered table-hover">
+	<tr>
+    <th>Id Pasajero</th>
+    <th>Tipo documento</th>
+    <th>Numero documento</th>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>Telefono</th>
+    <th>Correo</th>
+	</tr>
+	<tr *ngFor="let paseger of arraypass; let i= index">
+		<td>
+        <input type="number" name="idpasajero_{{i}}" disabled="true" [(ngModel)]="paseger.idpasajero" required>
+        </td>
+        <td>
+	    <select name="idtipodoc_{{i}}" [(ngModel)]="paseger.idtipodoc" width="30px" class="form-control" style="width: 310px;" required>
+        <option value="1">Cedula de ciudadania</option>
+        <option value="2">Pasaporte</option>
+        <option value="3">Cedula de extranjeria</option>
+	    </select>
+
+        </td>	
+        <td>
+        <input type="text" name="numdoc_{{i}}" [(ngModel)]="paseger.numdoc" required>        	
+        </td>
+        <td>
+        <input type="text" name="nombres_{{i}}" [(ngModel)]="paseger.nombres" required>        	
+        </td>
+        <td>
+        <input type="text" name="apellidos_{{i}}" [(ngModel)]="paseger.apellidos" required>        	
+        </td>
+
+        <td>
+        <input type="number" name="telefono_{{i}}" [(ngModel)]="paseger.telefono" required>        	
+        </td>
+
+        <td>
+        <input type="email" name="correo_{{i}}" [(ngModel)]="paseger.correo" required>        	
+        </td>
+    <td> <button type="submit" class="btn btn-primary" [disabled]="frmalumput.invalid" on-click="clkactualiza(paseger.idpasajero,paseger.idtipodoc,paseger.numdoc,paseger.nombres,paseger.apellidos,paseger.telefono,paseger.correo)" >Actualizar</button> </td>
+    <td> <button type="submit" class="btn btn-danger" [disabled]="frmalumput.invalid" on-click="clkelim(paseger.idpasajero)">Eliminar</button> </td>
+	</tr>
+	
+</table>
+</form>
+	</div>
+</section>
+
