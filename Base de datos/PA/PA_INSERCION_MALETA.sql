@@ -1,4 +1,4 @@
-CREATE PROCEDURE PA_INSERCION_MALETA(@opt INT, @idviajepersona INT, @alto INT ,@ancho INT, @largo INT , @peso INT)
+ALTER PROCEDURE PA_INSERCION_MALETA(@opt INT, @idviajepersona INT, @alto INT ,@ancho INT, @largo INT , @peso INT)
 AS
 BEGIN
 -- operaciones
